@@ -20,8 +20,7 @@ const citiesByState = {
   "Uttar Pradesh": ["Ghaziabad", "Lucknow", "Faizabad", "Kanpur", "Jhansi", "Saharanpur", "Gautam Buddha Nagar", "Noida", "Meerut", "Bareilly", "Agra", "Mathura", "Allahabad", "Aligarh"],
   "Uttarakhand": ["Dehradun", "Haridwar", "Roorkee", "Udham Singh Nagar"],
   "West Bengal": ["Siliguri", "Asansol", "Barddhaman", "Kolkata", "Kharagpur"]
-}
-;
+};
 
 const centresByCity = {
   "Anantapur": ["Anantapur-Sangameswara Circle"],
@@ -247,19 +246,12 @@ function submitForm() {
 
   // Collect the form data
   var formData = new FormData(document.getElementById("signupForm"));
-  var keyValuePairs = [];
-
-  for (var pair of formData.entries()) {
-    keyValuePairs.push(pair[0] + "=" + pair[1]);
-  }
-
-  var formDataString = keyValuePairs.join("&");
 
   // Send a POST request to your Google Apps Script
   fetch("https://script.google.com/macros/s/AKfycbx14ikdHfX5eGwH3O5dhrVQq4eXHa0FUItYbW2Vq7teoKxscEgqbMlgNnfWIIcVU3swOg/exec", {
     redirect: "follow",
     method: "POST",
-    body: formDataString,
+    body: JSON.stringify(formData),
     headers: {
       "Content-Type": "text/plain;charset=utf-8",
     },
