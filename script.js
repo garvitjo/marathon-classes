@@ -246,12 +246,19 @@ function submitForm() {
 
   // Collect the form data
   var formData = new FormData(document.getElementById("signupForm"));
+  var keyValuePairs = [];
+
+  for (var pair of formData.entries()) {
+    keyValuePairs.push(pair[0] + "=" + pair[1]);
+  }
+
+  var formDataString = keyValuePairs.join("&");
 
   // Send a POST request to your Google Apps Script
-  fetch("https://script.google.com/macros/s/AKfycbx14ikdHfX5eGwH3O5dhrVQq4eXHa0FUItYbW2Vq7teoKxscEgqbMlgNnfWIIcVU3swOg/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbw0Ic1Z6mmW2VRk-TbkkV30yw5EiSzzK22Vg79qujmAj5Dub4bsnRbRDVRhB3YZmrCm0A/exec", {
     redirect: "follow",
     method: "POST",
-    body: JSON.stringify(formData),
+    body: formDataString,
     headers: {
       "Content-Type": "text/plain;charset=utf-8",
     },
@@ -271,7 +278,6 @@ function submitForm() {
     })
     .catch(function (error) {
       // Handle errors, display an error message
-      console.error(error);
       alert("Form submitted"); // Display an error notification
     })
     .finally(function () {
